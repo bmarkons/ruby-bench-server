@@ -1,19 +1,26 @@
 #!/bin/bash
 
+mkdir -p $HOME/logs/rails/master
 exec &>> $HOME/logs/rails/master/run.log
 
+echo
+echo
+echo
+echo
 echo --------------$(date)
+
+COMMIT_HASH = $1
+API_NAME = $2
+API_PASSWORD = $3
+PATTERNS = $4
+
+set -x
 
 docker pull rubybench/rails_trunk
 
 docker run --name postgres -d postgres:9.3.5
 docker run --name mysql -e "MYSQL_ALLOW_EMPTY_PASSWORD=yes" -d mysql:5.6.24
 docker run --name redis -d redis:2.8.19
-
-COMMIT_HASH = $1
-API_NAME = $2
-API_PASSWORD = $3
-PATTERNS = $4
 
 docker run --rm \
   --link postgres:postgres \

@@ -1,14 +1,21 @@
 #!/bin/bash
 
+mkdir -p $HOME/logs/rails/releases
 exec &>> $HOME/logs/rails/releases/run.log
 
-echo --------------$(date)
+echo
+echo
+echo
+echo
+echo "-------------- $(date)"
 
 RAILS_VERSION=$1
 API_NAME=$2
 API_PASSWORD=$3
 CUSTOM_ENV=$4
 PATTERNS=$5
+
+set -x
 
 docker pull rubybench/rails_releases
 
@@ -23,7 +30,7 @@ docker run --rm \
   -e "RAILS_VERSION=$RAILS_VERSION" \
   -e "API_NAME=$API_NAME" \
   -e "API_PASSWORD=$API_PASSWORD" \
-  $(echo $CUSTOM_ENV) \
+  $CUSTOM_ENV \
   -e "INCLUDE_PATTERNS=$PATTERNS" \
   rubybench/rails_releases
 

@@ -1,7 +1,12 @@
 #!/bin/bash
 
+mkdir -p $HOME/logs/ruby/trunk
 exec &>> $HOME/logs/ruby/trunk/run.log
 
+echo
+echo
+echo
+echo
 echo --------------$(date)
 
 RUBY_BENCHMARKS=$1
@@ -12,6 +17,8 @@ RUBY_COMMIT_HASH=$5
 API_NAME=$6
 API_PASSWORD=$7
 PATTERNS=$8
+
+set -x
 
 docker pull rubybench/ruby_trunk
 

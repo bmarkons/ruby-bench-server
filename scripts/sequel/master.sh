@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir -p $HOME/logs/sequel/master
 exec &>> $HOME/logs/sequel/master/run.log
 
 echo "-----------$(date)"
@@ -8,6 +9,8 @@ SEQUEL_COMMIT_HASH=$1
 API_NAME=$2
 API_PASSWORD=$3
 PATTERNS=$4
+
+set -x
 
 docker pull rubybench/sequel_trunk
 
